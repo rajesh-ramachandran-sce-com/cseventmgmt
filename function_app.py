@@ -29,7 +29,7 @@ except Exception as e:
 app = func.FunctionApp(http_auth_level=func.AuthLevel.FUNCTION)
 @app.route(route="addevent")
 
-# Http Trigger Fucntion for the API 
+# Http Trigger Function for the API 
 def addevent(req: func.HttpRequest) -> func.HttpResponse:
     
     if req.method == 'POST':
@@ -69,13 +69,13 @@ def addevent(req: func.HttpRequest) -> func.HttpResponse:
                 response = requests.post(snowflake_url, headers=headers, params=params, json=data)
 
                 if response.status_code == 200:
-                    logging.info("Http Trigger function executed succesfully")
+                    logging.info("Http Trigger function executed successfully")
                     return func.HttpResponse(response.text, status_code=200,headers={"Content-Type": "application/json"})
                 else:
                     return func.HttpResponse(f"Error executing query: {response.text}", status_code=response.status_code)
             else:
                  # Incorrect JSON format found in Body
-                return func.HttpResponse("Invalid body specifed, expected in JSON format {'KEY' : KeyString, 'VALUE' : ValueString}.", status_code=400)
+                return func.HttpResponse("Invalid body specified, expected in JSON format {'KEY' : KeyString, 'VALUE' : ValueString}.", status_code=400)
         except ValueError:
             # If error occurs in JSON parsing
             return func.HttpResponse("Invalid body specifed, expected in JSON format {'KEY' : KeyString, 'VALUE' : ValueString}.", status_code=400)
@@ -110,7 +110,7 @@ def put_blob_content(blob_client, content):
 @app.timer_trigger(schedule="0 0 10 * * *", arg_name="myTimer", run_on_startup=False,
               use_monitor=True) 
 
-# Http Time Trigger Function to refresh teh Okta token everyday at 10.00 AM UTC
+# Http Time Trigger Function to refresh the Okta token everyday at 10.00 AM UTC
 def timer_trigger(myTimer: func.TimerRequest) -> None:
     
     if myTimer.past_due:
