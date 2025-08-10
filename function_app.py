@@ -1,9 +1,7 @@
 import azure.functions as func
 import logging
-from azure.storage.blob import BlobServiceClient, BlobClient
-import requests
-import os
-import json
+from azure.storage.blob import BlobServiceClient 
+import requests, os, json
 from datetime import datetime
 
 # Get URLs 
